@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+export const AppearFromLeft = keyframes`
+from{
+    opacity:0;
+   
+}
+to{
+    opacity:1;
+   
+}`;
 
 export const Container = styled.div`
   width: 396px;
@@ -12,6 +22,7 @@ export const Container = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border: "2px solid #000";
+  animation: ${AppearFromLeft} 1s;
 
   header {
     display: flex;
@@ -29,6 +40,10 @@ export const Container = styled.div`
   form {
     background-color: var(--grey-3);
     padding: 5px 10px 15px 10px;
+  }
+  section {
+    display: flex;
+    gap: 10px;
   }
   @media only screen and (max-width: 600px) {
     width: 90%;

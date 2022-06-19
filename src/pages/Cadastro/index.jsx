@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Form, Select, LabelSelect } from "./style";
@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import api from "../../Services";
 import { toast } from "react-toastify";
 
-function Cadastro() {
+function Cadastro({ autenticado }) {
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatorio!"),
     email: yup.string().email("Email invalido").required("Campo obrigatorio!"),
@@ -62,7 +62,7 @@ function Cadastro() {
           draggable: true,
           progress: undefined,
         });
-        return history.push("/dashboard");
+        return history.push("/");
       })
       .catch((err) =>
         toast.error("Erro ao criar a conta, tente outro email", {
@@ -79,6 +79,9 @@ function Cadastro() {
 
   function redirecionar() {
     history.push("/");
+  }
+  if (autenticado) {
+    return <Redirect to="/dashboard" />;
   }
   return (
     <Container>

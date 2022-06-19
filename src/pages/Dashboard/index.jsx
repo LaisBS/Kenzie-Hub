@@ -5,12 +5,15 @@ import Card from "../../components/Card";
 import { useState, useEffect } from "react";
 import Modal from "../../components/Modal";
 import api from "../../Services";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
-function Dashboard() {
+function Dashboard({ autenticado, setAutenticado }) {
   const [user] = useState(JSON.parse(localStorage.getItem("@KenzieHub:user")));
   const [open, setOpen] = useState(false);
   const [techs, setTechs] = useState([]);
+  const [edit, setEdit] = useState(false);
+  const [id, setId] = useState("");
+  const [titulo, setTitulo] = useState("");
 
   function loadPage() {
     api.get(`/users/${user.id}`).then((response) => {
@@ -26,11 +29,26 @@ function Dashboard() {
   }
   const history = useHistory();
   function logout() {
+    localStorage.removeItem("@KenzieHub:token");
+    localStorage.removeItem("@KenzieHub:user");
+    setAutenticado(false);
     return history.push("/");
+  }
+  if (!autenticado) {
+    return <Redirect to="/" />;
   }
   return (
     <>
-      {open && <Modal setOpen={setOpen} loadPage={loadPage} />}
+      {open && (
+        <Modal
+          setOpen={setOpen}
+          loadPage={loadPage}
+          edit={edit}
+          id={id}
+          setEdit={setEdit}
+          titulo={titulo}
+        />
+      )}
       <Container open={!!open}>
         <NavBar>
           <h1>Kenzie Hub</h1>
@@ -54,7 +72,10 @@ function Dashboard() {
                 id={elem.id}
                 title={elem.title}
                 status={elem.status}
-                loadPage={loadPage}
+                setOpen={setOpen}
+                setEdit={setEdit}
+                setId={setId}
+                setTitulo={setTitulo}
               />
             ))}
         </List>

@@ -1,29 +1,17 @@
-import { BsTrash } from "react-icons/bs";
 import { Container } from "./style";
 
-import api from "../../Services";
-import { useState } from "react";
-
-function Card({ id, title, status, loadPage }) {
-  const [token] = useState(
-    JSON.parse(localStorage.getItem("@KenzieHub:token"))
-  );
-
-  function deleteItem() {
-    api
-      .delete(`/users/techs/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => loadPage());
+function Card({ id, title, status, setOpen, setEdit, setId, setTitulo }) {
+  function handleOpen() {
+    setEdit(true);
+    setOpen(true);
+    setId(id);
+    setTitulo(title);
   }
   return (
-    <Container>
+    <Container onClick={handleOpen}>
       <p>{title}</p>
       <div>
         <span>{status}</span>
-        <BsTrash onClick={deleteItem} />
       </div>
     </Container>
   );

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Form } from "./style";
@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import api from "../../Services";
 import { toast } from "react-toastify";
 
-function Login() {
+function Login({ autenticado, setAutenticado }) {
   const schema = yup.object().shape({
     email: yup.string().email("Email invalido").required("Campo obrigatorio!"),
     password: yup
@@ -33,6 +33,7 @@ function Login() {
 
         localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
         localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
+        setAutenticado(true);
 
         return history.push("/dashboard");
       })
@@ -51,6 +52,9 @@ function Login() {
   const history = useHistory();
   function redirecionar() {
     history.push("/cadastro");
+  }
+  if (autenticado) {
+    return <Redirect to="/dashboard" />;
   }
   return (
     <Container>

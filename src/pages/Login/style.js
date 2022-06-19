@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+export const AppearFromRigth = keyframes`
+from{
+    opacity:0;
+    transform: translateX(50px)
+}
+to{
+    opacity:1;
+    transform:translateX(0px)
+}`;
 
 export const Container = styled.div`
   height: 100vh;
@@ -7,6 +17,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: ${AppearFromRigth} 1s;
 
   h1 {
     color: var(--color-primary);
