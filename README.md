@@ -6,8 +6,8 @@ O Kenziehub é um hub de portfólios de programadores que usa uma API feita pela
 
 Para realizar essa atividade utilizei as seguintes tecnologias:
 
-*Autenticação com JWT(JSON Web Token),
-*Validações de formulário por meio de yup/hook-form,
-*Gerenciamento de rotas por meio do router-dom,
-*Requisições do tipo POST, PUT e DELETE,
-*Estilização com styled-components 💅
+- Autenticação com JWT(JSON Web Token),
+- Validações de formulário por meio de yup/hook-form,
+- Gerenciamento de rotas por meio do router-dom,
+- Requisições do tipo POST, PUT e DELETE,
+- Estilização com styled-components 💅
